@@ -25,22 +25,22 @@ jobs:
 #    - os: linux
 #      env:
 #        - MB_PYTHON_VERSION=3.7
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.8
-  # OSX builds
-    - os: osx
-      env:
-        - MB_PYTHON_VERSION=3.6
-        - VENV=venv
-    - os: osx
-      env:
-        - MB_PYTHON_VERSION=3.7
-        - VENV=venv
-    - os: osx
-      env:
-        - MB_PYTHON_VERSION=3.8
-        - VENV=venv
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.8
+#   OSX builds
+#    - os: osx
+#      env:
+#        - MB_PYTHON_VERSION=3.6
+#        - VENV=venv
+#    - os: osx
+#      env:
+#        - MB_PYTHON_VERSION=3.7
+#        - VENV=venv
+#    - os: osx
+#      env:
+#        - MB_PYTHON_VERSION=3.8
+#        - VENV=venv
   # Default OSX (xcode image) is 10.13 (xcode 9.4.1) as of 2020-03-24
   # See: https://docs.travis-ci.com/user/reference/osx/
 #    - os: osx
@@ -59,17 +59,17 @@ jobs:
 #      osx_image: xcode11.3
 #      env:
 #        - MB_PYTHON_VERSION=3.6
-#    - os: osx
-#      osx_image: xcode11.3
-#      env:
-#        - MB_PYTHON_VERSION=3.7
+    - os: osx
+      osx_image: xcode11.3
+      env:
+        - MB_PYTHON_VERSION=3.7
 #    - os: osx
 #      osx_image: xcode11.3
 #      env:
 #        - MB_PYTHON_VERSION=3.8
-    - os: windows
-      env:
-        - MB_PYTHON_VERSION=3.8
+#    - os: windows
+#      env:
+#        - MB_PYTHON_VERSION=3.8
 
 before_install:
   - source multibuild/common_utils.sh
