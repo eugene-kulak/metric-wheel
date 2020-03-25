@@ -11,8 +11,10 @@ function install_dependencies_osx {
 }
 
 function install_dependencies_linux {
-    yum_install cmake3 && export CMAKE_EXE=cmake3
-    yum_install devtoolset-9 && scl enable devtoolset-9 bash
+    yum_install cmake3
+    export CMAKE_EXE=cmake3
+    yum_install devtoolset-9
+    scl enable devtoolset-9 bash
     yum_install boost-devel
     yum_install openblas-devel
 }
