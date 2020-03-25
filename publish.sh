@@ -1,7 +1,8 @@
 #!/bin/bash
 
 function install_twine {
-    pip install twine
+    python --version
+    python -m pip install twine
 }
 
 function upload_to_pypi {
