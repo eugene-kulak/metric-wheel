@@ -7,7 +7,6 @@ env:
     - BUILD_DEPENDS="auditwheel==3.1.0 twine"
     - TEST_DEPENDS="pytest"
     - UNICODE_WIDTH=32
-    - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
     - PYPI_SERVER="https://test.pypi.org/legacy/"
     - secure: ZdCLtDmeV+w6SEnCYPqa0Oj9t+2zYkIsA7VWuGqX18LSdZtBSIhVf1AgHPK0ZG46OtjxvLp/QZqdYYTsWTZyzIBUlqJdUMbisOLiu4daUzz0rL985gyA2GvBMUcVn8uFHQ9CVEXzD/IU91aPIINgUju/n2DsQ+jUJqnft32SbSqY5PxGeWM3Ca/xxqm3hM6pEyOvTimHVyYP3pphQfdT8M1CbwpwUa4SgjPjOPUOw6iLhNTDJ+jSwtn4mhA1LejlTWW/nXBsYSoR21/29hVfuBvG2+tbJmirCXUrbrRnPNaQE5JZ+8hzlmzF5YFvZY8fLJH1duvARo8gS1FD83kTc7PNBmmYi3pa8sjZ67eZd02J3hIOVUYIdraMs4ccj2utixzr4suieso0a/aGCd/39J/b1FgK+zSS+j5ruj7v/jlEqCm7aCyYd0e72WOctfzgnibknrYI0JSITwZdT22dppKjoI/iy5WxykD5/s5xaJMPAK5IuFzURljuBdDo0rUGTSlOIhA5N8iBIy8KfnpTfqgPuGjcBhVyNOz/u8WVN4mG3dr852xHTIcCioDxKMGC9jajeSAbNHUyopih6aLOjCI3w4HM7oqRSzzgqjR3tbbsVQGHRpg2wiBFBW9U4LmWRyiU7Yb3qpCEToCczP2c8rbs5/vf0+aZkcnsWZFcMRY=
     - MB_PYTHON_VERSION=3.7
@@ -19,9 +18,9 @@ services: docker
 jobs:
   include:
   # Linux builds
-#    - os: linux
-#      env:
-#        - MB_PYTHON_VERSION=3.6
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.6
 #    - os: linux
 #      env:
 #        - MB_PYTHON_VERSION=3.7
