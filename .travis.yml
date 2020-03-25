@@ -4,7 +4,7 @@ env:
     - PACKAGE_DIR="metric/python"
     - BUILD_COMMIT=HEAD
     - PLAT=x86_64
-    - BUILD_DEPENDS="auditwheel==3.1.0 twine"
+    - BUILD_DEPENDS="auditwheel==3.1.0"
     - TEST_DEPENDS="pytest"
     - UNICODE_WIDTH=32
     - PYPI_SERVER="https://test.pypi.org/legacy/"

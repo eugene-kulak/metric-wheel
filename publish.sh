@@ -1,8 +1,14 @@
 #!/bin/bash
 
+function install_twine {
+    pip3 install twine
+}
+
 function upload_to_pypi {
     local pypi_server=${1:-$PYPI_SERVER}
     local wheelhouse=$(abspath ${WHEEL_SDIR:-wheelhouse})
+
+    install_twine
 
     local OS_ID=manylinux
     if [ -n "$IS_OSX" ]; then OS_ID=macosx; fi
