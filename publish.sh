@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function install_twine {
-    pip3 install twine
+    pip install twine
 }
 
 function upload_to_pypi {
