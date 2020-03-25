@@ -1,0 +1,82 @@
+env:
+  global:
+    - REPO_DIR="metric"
+    - PACKAGE_DIR="metric/python"
+    - BUILD_COMMIT=HEAD
+    - PLAT=x86_64
+    - BUILD_DEPENDS="auditwheel==3.1.0 twine"
+    - TEST_DEPENDS="pytest"
+    - UNICODE_WIDTH=32
+    - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
+    - PYPI_SERVER="https://test.pypi.org/legacy/"
+    - secure: ZdCLtDmeV+w6SEnCYPqa0Oj9t+2zYkIsA7VWuGqX18LSdZtBSIhVf1AgHPK0ZG46OtjxvLp/QZqdYYTsWTZyzIBUlqJdUMbisOLiu4daUzz0rL985gyA2GvBMUcVn8uFHQ9CVEXzD/IU91aPIINgUju/n2DsQ+jUJqnft32SbSqY5PxGeWM3Ca/xxqm3hM6pEyOvTimHVyYP3pphQfdT8M1CbwpwUa4SgjPjOPUOw6iLhNTDJ+jSwtn4mhA1LejlTWW/nXBsYSoR21/29hVfuBvG2+tbJmirCXUrbrRnPNaQE5JZ+8hzlmzF5YFvZY8fLJH1duvARo8gS1FD83kTc7PNBmmYi3pa8sjZ67eZd02J3hIOVUYIdraMs4ccj2utixzr4suieso0a/aGCd/39J/b1FgK+zSS+j5ruj7v/jlEqCm7aCyYd0e72WOctfzgnibknrYI0JSITwZdT22dppKjoI/iy5WxykD5/s5xaJMPAK5IuFzURljuBdDo0rUGTSlOIhA5N8iBIy8KfnpTfqgPuGjcBhVyNOz/u8WVN4mG3dr852xHTIcCioDxKMGC9jajeSAbNHUyopih6aLOjCI3w4HM7oqRSzzgqjR3tbbsVQGHRpg2wiBFBW9U4LmWRyiU7Yb3qpCEToCczP2c8rbs5/vf0+aZkcnsWZFcMRY=
+    - MB_PYTHON_VERSION=3.7
+language: generic
+python: 3.7
+dist: xenial
+services: docker
+
+jobs:
+  include:
+  # Linux builds
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.6
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.7
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.8
+  # OSX builds
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.6
+        - VENV=venv
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.7
+        - VENV=venv
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.8
+        - VENV=venv
+  # Default OSX (xcode image) is 10.13 (xcode 9.4.1) as of 2020-03-24
+  # See: https://docs.travis-ci.com/user/reference/osx/
+#    - os: osx
+#      osx_image: xcode10
+#      env:
+#        - MB_PYTHON_VERSION=3.6
+#    - os: osx
+#      osx_image: xcode10
+#      env:
+#        - MB_PYTHON_VERSION=3.7
+#    - os: osx
+#      osx_image: xcode10
+#      env:
+#        - MB_PYTHON_VERSION=3.8
+#    - os: osx
+#      osx_image: xcode11.3
+#      env:
+#        - MB_PYTHON_VERSION=3.6
+#    - os: osx
+#      osx_image: xcode11.3
+#      env:
+#        - MB_PYTHON_VERSION=3.7
+#    - os: osx
+#      osx_image: xcode11.3
+#      env:
+#        - MB_PYTHON_VERSION=3.8
+
+before_install:
+  - source multibuild/common_utils.sh
+  - source multibuild/travis_steps.sh
+  - before_install
+install:
+  - clean_code $REPO_DIR $BUILD_COMMIT
+  - build_wheel $PACKAGE_DIR $PLAT
+script:
+  - install_run $PLAT
+after_success:
+  - source publish.sh
+  - upload_to_pypi $PYPI_SERVER
