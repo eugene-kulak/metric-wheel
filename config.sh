@@ -34,6 +34,6 @@ function pre_build {
 function run_tests {
     # Runs tests on installed distribution from an empty directory
     echo "SKIP... TODO"
-#    python --version
-#    python -c 'import sys; import yourpackage; sys.exit(yourpackage.test())'
+    python --version
+    python -c 'import sys; import yourpackage; sys.exit(yourpackage.test())'
 }
