@@ -4,7 +4,7 @@
 # Test for macOS with [ -n "$IS_OSX" ]
 
 function install_dependencies_osx {
-    brew install cmake
+    #brew install cmake
     brew install boost
     brew install openblas
     brew install libpqxx
