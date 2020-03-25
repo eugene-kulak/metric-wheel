@@ -4,8 +4,8 @@
 # Test for macOS with [ -n "$IS_OSX" ]
 
 function install_dependencies_osx {
-    brew install cmake
-    brew install boost
+    #brew install cmake
+    #brew install boost
     brew install openblas
     brew install libpqxx
     export METRIC_SOURCE_PATH=`python2 -c "import os,sys; print os.path.realpath(os.path.join(sys.argv[1], os.pardir))" ${repo_dir}`
