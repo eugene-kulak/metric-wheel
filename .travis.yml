@@ -42,14 +42,18 @@ jobs:
 #        - VENV=venv
   # Default OSX (xcode image) is 10.13 (xcode 9.4.1) as of 2020-03-24
   # See: https://docs.travis-ci.com/user/reference/osx/
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.7
+        - MB_PYTHON_OSX_VER=10.9
 #    - os: osx
 #      osx_image: xcode10
 #      env:
 #        - MB_PYTHON_VERSION=3.6
-    - os: osx
-      osx_image: xcode10
-      env:
-        - MB_PYTHON_VERSION=3.7
+#    - os: osx
+#      osx_image: xcode10
+#      env:
+#        - MB_PYTHON_VERSION=3.7
 #    - os: osx
 #      osx_image: xcode10
 #      env:
