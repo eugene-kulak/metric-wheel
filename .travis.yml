@@ -32,10 +32,10 @@ jobs:
 #      env:
 #        - MB_PYTHON_VERSION=3.6
 #        - VENV=venv
-#    - os: osx
-#      env:
-#        - MB_PYTHON_VERSION=3.7
-#        - VENV=venv
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.7
+        - VENV=venv
 #    - os: osx
 #      env:
 #        - MB_PYTHON_VERSION=3.8
@@ -51,7 +51,14 @@ jobs:
 #      env:
 #        - MB_PYTHON_VERSION=3.6
     - os: osx
-      osx_image: xcode10.3
+      osx_image: xcode11
+      env:
+        - MB_PYTHON_VERSION=3.7
+    - os: osx
+      osx_image: xcode11.1
+      env:
+        - MB_PYTHON_VERSION=3.7
+    - os: osx
       env:
         - MB_PYTHON_VERSION=3.7
 #    - os: osx
