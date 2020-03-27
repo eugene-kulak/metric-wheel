@@ -9,7 +9,7 @@ environment:
     BUILD_COMMIT: master
     NP_BUILD_DEP: "auditwheel==3.1.0"
     NP_TEST_DEP: "pytest"
-    BOOST_ROOT: "C:\Libraries\boost_1_71_0"
+    BOOST_ROOT: "C:/Libraries/boost_1_71_0"
 
   matrix:
     - PYTHON: C:\Python36
