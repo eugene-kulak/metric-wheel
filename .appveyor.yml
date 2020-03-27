@@ -10,6 +10,7 @@ environment:
     NP_BUILD_DEP: "auditwheel==3.1.0"
     NP_TEST_DEP: "pytest"
     BOOST_ROOT: "C:/Libraries/boost_1_71_0"
+    GNOME_BASE_URL: "http://ftp.gnome.org/pub/gnome/binaries/win32"
 
   matrix:
     - PYTHON: C:\Python36
@@ -53,6 +54,13 @@ install:
       cp $lib $destination
       ls $destination
       $env:BLAS_LIBRARIES = $destination
+
+  - curl -LO %GNOME_BASE_URL%/dependencies/pkg-config_0.26-1_win32.zip
+  - curl -LO %GNOME_BASE_URL%/glib/2.28/glib_2.28.8-1_win32.zip
+  - curl -LO %GNOME_BASE_URL%/dependencies/gettext-runtime_0.18.1.1-2_win32.zip
+  - 7z x -y pkg-config_0.26-1_win32.zip -oC:\pkg-config > nul
+  - 7z x -y glib_2.28.8-1_win32.zip -oC:\pkg-config > nul
+  - 7z x -y gettext-runtime_0.18.1.1-2_win32.zip -oC:\pkg-config > nul
 
 build_script:
   # Install the dependencies of the project.
