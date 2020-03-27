@@ -70,13 +70,11 @@ def download_openblas(target, arch, ilp64):
         typ = 'tar.gz'
     if not filename:
         return None
-    print("Downloading:", filename, file=sys.stderr)
     http = urllib3.PoolManager()
     response = http.request('GET', filename)
     if response.status != 200:
         print(f'Could not download "{filename}"', file=sys.stderr)
         return None
-    print("Saving to file", file=sys.stderr)
     with open(target, 'wb') as fid:
         fid.write(response.data)
     return typ
