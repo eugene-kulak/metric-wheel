@@ -62,8 +62,6 @@ install:
   - 7z x -y pkg-config_0.26-1_win32.zip -oC:\pkg-config > nul
   - 7z x -y glib_2.28.8-1_win32.zip -oC:\pkg-config > nul
   - 7z x -y gettext-runtime_0.18.1.1-2_win32.zip -oC:\pkg-config > nul
-  - ps: |
-
 
 build_script:
   # Install the dependencies of the project.
