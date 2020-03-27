@@ -18,15 +18,15 @@ services: docker
 jobs:
   include:
   # Linux builds
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.6
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.7
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.8
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.6
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.7
+#    - os: linux
+#      env:
+#        - MB_PYTHON_VERSION=3.8
 #   OSX builds
 #    - os: osx
 #      env:
@@ -43,6 +43,19 @@ jobs:
   # Default OSX (xcode image) is 10.13 (xcode 9.4.1) as of 2020-03-24
   # See: https://docs.travis-ci.com/user/reference/osx/
     - os: osx
+      osx_image: xcode10.3
+      env:
+        - MB_PYTHON_VERSION=3.6
+        - VENV=venv
+        - MB_PYTHON_OSX_VER=10.9
+    - os: osx
+      osx_image: xcode11
+      env:
+        - MB_PYTHON_VERSION=3.6
+        - VENV=venv
+        - MB_PYTHON_OSX_VER=10.9
+    - os: osx
+      osx_image: xcode11.3
       env:
         - MB_PYTHON_VERSION=3.6
         - VENV=venv
