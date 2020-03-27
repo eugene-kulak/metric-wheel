@@ -32,10 +32,10 @@ jobs:
 #      env:
 #        - MB_PYTHON_VERSION=3.6
 #        - VENV=venv
-    - os: osx
-      env:
-        - MB_PYTHON_VERSION=3.7
-        - VENV=venv
+#    - os: osx
+#      env:
+#        - MB_PYTHON_VERSION=3.7
+#        - VENV=venv
 #    - os: osx
 #      env:
 #        - MB_PYTHON_VERSION=3.8
@@ -50,17 +50,17 @@ jobs:
 #      osx_image: xcode10
 #      env:
 #        - MB_PYTHON_VERSION=3.6
+#    - os: osx
+#      osx_image: xcode11.2
+#      env:
+#        - MB_PYTHON_VERSION=3.7
     - os: osx
-      osx_image: xcode11.2
+      osx_image: xcode10.3
       env:
         - MB_PYTHON_VERSION=3.7
-    - os: osx
-      osx_image: xcode11.3
-      env:
-        - MB_PYTHON_VERSION=3.7
-    - os: osx
-      env:
-        - MB_PYTHON_VERSION=3.7
+#    - os: osx
+#      env:
+#        - MB_PYTHON_VERSION=3.7
 #    - os: osx
 #      osx_image: xcode10
 #      env:
@@ -77,9 +77,9 @@ jobs:
 #      osx_image: xcode11.3
 #      env:
 #        - MB_PYTHON_VERSION=3.8
-#    - os: windows
-#      env:
-#        - MB_PYTHON_VERSION=3.8
+    - os: windows
+      env:
+        - MB_PYTHON_VERSION=3.8
 
 before_install:
   - source multibuild/common_utils.sh
