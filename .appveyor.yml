@@ -6,7 +6,7 @@ environment:
     REPO_DIR: metric
     PACKAGE_DIR: metric/python
     PACKAGE_NAME: metric-py
-    BUILD_COMMIT: v4.0.1
+    BUILD_COMMIT: master
     NP_BUILD_DEP: "auditwheel==3.1.0"
     NP_TEST_DEP: "pytest"
 
@@ -48,8 +48,8 @@ build_script:
     # Build wheel
     - python -m pip install wheel
     - cd %REPO_DIR%
-    - git checkout %BUILD_COMMIT%
-    - git apply ..\patches\free_space_in_dir.path
+#    - git checkout %BUILD_COMMIT%
+#    - git apply ..\patches\free_space_in_dir.path
     - python setup.py bdist_wheel
     - cd ..
 
