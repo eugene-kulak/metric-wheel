@@ -50,12 +50,13 @@ install:
   - ps: |
       $PYTHON = $env:PYTHON
       $lib = python ./openblas_support.py
-      md %BLAS_LIBRARIES
-      $destination = %BLAS_LIBRARIES%/openblas.lib"
+      md $env:BLAS_LIBRARIES
+      $destination = "$env:BLAS_LIBRARIES/openblas.lib"
       echo $lib
       cp $lib $destination
       ls $destination
 
+  # Install PkgConfig
   - curl -LO %GNOME_BASE_URL%/dependencies/pkg-config_0.26-1_win32.zip
   - curl -LO %GNOME_BASE_URL%/glib/2.28/glib_2.28.8-1_win32.zip
   - curl -LO %GNOME_BASE_URL%/dependencies/gettext-runtime_0.18.1.1-2_win32.zip
