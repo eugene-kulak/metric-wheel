@@ -7,7 +7,7 @@ environment:
     PACKAGE_DIR: metric/python
     PACKAGE_NAME: metric-py
     BUILD_COMMIT: master
-    NP_BUILD_DEP: "auditwheel==3.1.0 urllib3"
+    NP_BUILD_DEP: "auditwheel==3.1.0"
     NP_TEST_DEP: "pytest"
     BOOST_ROOT: "C:/Libraries/boost_1_71_0"
 
@@ -33,7 +33,7 @@ install:
   # done from inside the powershell script as it would require to restart
   # the parent CMD process).
   - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
-  - python -m pip install -U pip setuptools
+  - python -m pip install -U pip setuptools wheel urllib3
 
   # Fix MSVC builds for 64-bit Python. See:
   # http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10
@@ -43,19 +43,19 @@ install:
   - python --version
   - python -c "import struct; print(struct.calcsize('P') * 8)"
 
-build_script:
-  # Install the dependencies of the project.
-  - python -m pip install %NP_BUILD_DEP%
-
   # Install OpenBLAS
   - ps: |
       $PYTHON = $env:PYTHON
       $lib = python ./openblas_support.py
-      $destination = "$PYTHON\lib\openblas.a"
+      $destination = "$PYTHON\lib\openblas.lib"
       echo $lib
       cp $lib $destination
       ls $destination
-      [System.Environment]::SetEnvironmentVariable('BLAS_LIBRARIES', $destination, [System.EnvironmentVariableTarget]::User)
+      $env:BLAS_LIBRARIES = $destination
+
+build_script:
+  # Install the dependencies of the project.
+  - python -m pip install %NP_BUILD_DEP%
 
   # Build wheel
   - python -m pip install wheel
