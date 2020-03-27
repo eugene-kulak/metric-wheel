@@ -7,7 +7,7 @@ environment:
     PACKAGE_DIR: metric/python
     PACKAGE_NAME: metric-py
     BUILD_COMMIT: master
-    NP_BUILD_DEP: "auditwheel==3.1.0"
+    NP_BUILD_DEP: "auditwheel==3.1.0 urllib3"
     NP_TEST_DEP: "pytest"
     BOOST_ROOT: "C:/Libraries/boost_1_71_0"
 
@@ -43,6 +43,11 @@ install:
   - python --version
   - python -c "import struct; print(struct.calcsize('P') * 8)"
 
+build_script:
+  # Install the dependencies of the project.
+  - python -m pip install %NP_BUILD_DEP%
+
+  # Install OpenBLAS
   - ps: |
       $PYTHON = $env:PYTHON
       $lib = python ./openblas_support.py
@@ -51,9 +56,6 @@ install:
       cp $lib $destination
       ls $destination
 
-build_script:
-  # Install the dependencies of the project.
-  - python -m pip install %NP_BUILD_DEP%
   # Build wheel
   - python -m pip install wheel
   - cd %PACKAGE_DIR%
