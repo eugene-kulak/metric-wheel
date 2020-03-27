@@ -11,6 +11,8 @@ environment:
     NP_TEST_DEP: "pytest"
     BOOST_ROOT: "C:/Libraries/boost_1_71_0"
     GNOME_BASE_URL: "http://ftp.gnome.org/pub/gnome/binaries/win32"
+    BLAS_LIBRARIES: "C:/opt/lib"
+    PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
 
   matrix:
     - PYTHON: C:\Python36
@@ -48,12 +50,11 @@ install:
   - ps: |
       $PYTHON = $env:PYTHON
       $lib = python ./openblas_support.py
-      md "C:/opt/lib/"
-      $destination = "C:/opt/lib/openblas.lib"
+      md %BLAS_LIBRARIES
+      $destination = %BLAS_LIBRARIES%/openblas.lib"
       echo $lib
       cp $lib $destination
       ls $destination
-      $env:BLAS_LIBRARIES = $destination
 
   - curl -LO %GNOME_BASE_URL%/dependencies/pkg-config_0.26-1_win32.zip
   - curl -LO %GNOME_BASE_URL%/glib/2.28/glib_2.28.8-1_win32.zip
@@ -61,6 +62,8 @@ install:
   - 7z x -y pkg-config_0.26-1_win32.zip -oC:\pkg-config > nul
   - 7z x -y glib_2.28.8-1_win32.zip -oC:\pkg-config > nul
   - 7z x -y gettext-runtime_0.18.1.1-2_win32.zip -oC:\pkg-config > nul
+  - ps: |
+
 
 build_script:
   # Install the dependencies of the project.
