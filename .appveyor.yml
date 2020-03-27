@@ -1,52 +1,82 @@
-# This file automatize the testing of SimGrid on Windows using the appveyor.com continuous integration service
-#
-# Build logs: https://ci.appveyor.com/project/simgrid/simgrid
-
-# Documentation: https://www.appveyor.com/docs/
-#                https://www.appveyor.com/docs/installed-software/
-
-image:
-  - Visual Studio 2019
-
-version: "{build}"
-clone_depth: 1
-
-# scripts that are called at very beginning, before repo cloning
-init:
-- git config --global core.longpaths true
-- git config --global core.autocrlf input
-
-branches:
-  only:
-     - master
+# vim ft=yaml
+# CI on Windows via appveyor
 
 environment:
   global:
-    BOOST_ROOT: C:\Libraries\boost_1_71_0
+    REPO_DIR: metric
+    PACKAGE_DIR: metric/python
+    PACKAGE_NAME: metric-py
+    BUILD_COMMIT: v4.0.1
+    NP_BUILD_DEP: "auditwheel==3.1.0"
+    NP_TEST_DEP: "pytest"
+
+  matrix:
+    - PYTHON: C:\Python36
+    - PYTHON: C:\Python36-x64
+    - PYTHON: C:\Python37
+    - PYTHON: C:\Python37-x64
+    - PYTHON: C:\Python38
+    - PYTHON: C:\Python38-x64
+
+matrix:
+    fast_finish: true
 
 install:
-# Strawberry perl is the one to work with gcc; AppVeyor provides ActiveState perl, which is the one to work with visual.
-# This package is so outdated and broken that we cannot use it anymore. So we build without perl
-# - choco install --limit-output strawberryperl --version 5.20.1.1
-# - SET PATH=C:\strawberry\c\bin;C:\strawberry\perl\site\bin;C:\strawberry\perl\bin;%PATH%
-# Lua
-#- choco install lua53
-# We need python v3
-- cmd: SET PATH=C:\Python37-x64;%PATH% # We need python v3
-# Use the mingw-w64 provided by Appveyor (must be placed before Perl in the path)
-- cmd: SET PATH=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\;%PATH%
-# Work around a bug on appveyor where the default sh is not the one I expect
-- rename "C:\Program Files\Git\usr\bin\sh.exe" "sh-ignored.exe"
+    # Fetch submodules
+    - git submodule update --init --recursive
+
+    # Install new Python if necessary
+    - ps: .\multibuild\install_python.ps1
+
+    # Prepend newly installed Python to the PATH of this build (this cannot be
+    # done from inside the powershell script as it would require to restart
+    # the parent CMD process).
+    - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+    - python -m pip install -U pip setuptools
+
+    # Fix MSVC builds for 64-bit Python. See:
+    # http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10
+    - echo "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 > "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat"
+
+    # Check that we have the expected version and architecture for Python
+    - python --version
+    - python -c "import struct; print(struct.calcsize('P') * 8)"
 
 build_script:
-- cd metric/python
-- python setup.py bdist_wheel
+    # Install the dependencies of the project.
+    - python -m pip install %NP_BUILD_DEP%
+    # Build wheel
+    - python -m pip install wheel
+    - cd %REPO_DIR%
+    - git checkout %BUILD_COMMIT%
+    - git apply ..\patches\free_space_in_dir.path
+    - python setup.py bdist_wheel
+    - cd ..
+
+test_script:
+    # create test env
+    - virtualenv --python %PYTHON%\Python.exe test_env
+    - test_env\Scripts\activate.bat
+    - where python
+    - python -m pip install %NP_TEST_DEP%
+
+    # install from wheel
+    - python -m pip install --pre --no-index --find-links %REPO_DIR%\dist\ %PACKAGE_NAME%
+
+    # Change into an innocuous directory and find tests from installation
+    - mkdir for_testing
+    - cd for_testing
+    - python --version
+    - python -c "import astropy; astropy.test(remote_data='none')"
+    - cd ..
 
 artifacts:
-- path: metric/python/dist/
+    - path: "%REPO_DIR%\\dist\\*"
 
-# IRC notifications, even if https://github.com/appveyor/ci/issues/88 is not closed yet
-on_failure:
-  - "python tools/appveyor-irc-notify.py simgrid [{project_name}:{branch}] {short_commit}: \"{message}\" ({author}) {color_red}Failed,Details: {build_url},Commit: {commit_url}"
-#on_success:
-#  - "python tools/appveyor-irc-notify.py simgrid [{project_name}:{branch}] {short_commit}: \"{message}\" ({author}) {color_green}Succeeded,Details: {build_url},Commit: {commit_url}"
+on_success:
+  # Upload the generated wheel package to Rackspace
+  # On Windows, Apache Libcloud cannot find a standard CA cert bundle so we
+  # disable the ssl checks.
+  - python -m pip install wheelhouse-uploader
+  - "python -m wheelhouse_uploader upload
+    --no-ssl-check --local-folder=%REPO_DIR%\\dist --no-update-index wheels"
