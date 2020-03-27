@@ -55,6 +55,7 @@ build_script:
       echo $lib
       cp $lib $destination
       ls $destination
+      $env:BLAS_LIBRARIES = $destination
 
   # Build wheel
   - python -m pip install wheel
