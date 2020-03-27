@@ -55,15 +55,14 @@ build_script:
       echo $lib
       cp $lib $destination
       ls $destination
-      $env:BLAS_LIBRARIES = $destination
+      [System.Environment]::SetEnvironmentVariable('BLAS_LIBRARIES', $destination, [System.EnvironmentVariableTarget]::User)
 
   # Build wheel
   - python -m pip install wheel
   - cd %PACKAGE_DIR%
 #    - git checkout %BUILD_COMMIT%
 #    - git apply ..\patches\free_space_in_dir.path
-  - python setup.py bdist_wheel
-  - cd ..
+  - BLAS_LIBRARIES python setup.py bdist_wheel
 
 test_script:
   # create test env
