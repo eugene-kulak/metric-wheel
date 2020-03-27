@@ -62,7 +62,7 @@ build_script:
   - cd %PACKAGE_DIR%
 #    - git checkout %BUILD_COMMIT%
 #    - git apply ..\patches\free_space_in_dir.path
-  - BLAS_LIBRARIES python setup.py bdist_wheel
+  - python setup.py bdist_wheel
 
 test_script:
   # create test env
