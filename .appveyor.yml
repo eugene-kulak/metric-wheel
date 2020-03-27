@@ -45,7 +45,7 @@ install:
 
   - ps: |
       $PYTHON = $env:PYTHON
-      $lib = python numpy/tools/openblas_support.py
+      $lib = python ./openblas_support.py
       $destination = "$PYTHON\lib\openblas.a"
       echo $lib
       cp $lib $destination
