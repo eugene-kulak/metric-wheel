@@ -47,7 +47,8 @@ install:
   - ps: |
       $PYTHON = $env:PYTHON
       $lib = python ./openblas_support.py
-      $destination = "C:\opt\lib\openblas.lib"
+      md "C:/opt/lib/"
+      $destination = "C:/opt/lib/openblas.lib"
       echo $lib
       cp $lib $destination
       ls $destination
