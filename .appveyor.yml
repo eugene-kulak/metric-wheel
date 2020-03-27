@@ -43,6 +43,14 @@ install:
     - python --version
     - python -c "import struct; print(struct.calcsize('P') * 8)"
 
+    - ps:
+      $PYTHON = $env:PYTHON
+      $lib = python openblas_support.py
+      $destination = "$PYTHON\lib\openblas.a"
+      echo $lib
+      cp $lib $destination
+      ls $destination
+
 build_script:
     # Install the dependencies of the project.
     - python -m pip install %NP_BUILD_DEP%
