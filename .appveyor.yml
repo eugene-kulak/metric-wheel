@@ -20,7 +20,7 @@ environment:
     - PYTHON: C:\Python38
 
 platform:
-  - Win32
+  - x86
   - x64
 
 matrix:
@@ -46,6 +46,8 @@ install:
   # Check that we have the expected version and architecture for Python
   - python --version
   - python -c "import struct; print(struct.calcsize('P') * 8)"
+
+  - SET CMAKE_GENERATOR_PLATFORM=%platform%
 
   # Install OpenBLAS
   - ps: |
