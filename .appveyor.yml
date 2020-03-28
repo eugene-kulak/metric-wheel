@@ -16,12 +16,17 @@ environment:
 
   matrix:
     - PYTHON: C:\Python36
+    - PYTHON: C:\Python36-x64
+        platform: x64
     - PYTHON: C:\Python37
+    - PYTHON: C:\Python37-x64
+        platform: x64
     - PYTHON: C:\Python38
+    - PYTHON: C:\Python38-x64
+        platform: x64
 
 platform:
   - Win32
-  - x64
 
 matrix:
     fast_finish: true
@@ -31,8 +36,7 @@ install:
   - git submodule update --init --recursive
 
   # Install new Python if necessary
-  - ps: .\install_python.ps1 $env:PYTHON $env:platform
-  - SET PYTHON="%PYTHON%-%platform%"
+  - ps: .\multibuild\install_python.ps1
 
   # Prepend newly installed Python to the PATH of this build (this cannot be
   # done from inside the powershell script as it would require to restart
