@@ -20,7 +20,7 @@ environment:
     - PYTHON: C:\Python38
 
 platform:
-  - x86
+  - Win32
   - x64
 
 matrix:
@@ -31,7 +31,8 @@ install:
   - git submodule update --init --recursive
 
   # Install new Python if necessary
-  - ps: .\multibuild\install_python.ps1
+  - ps: .\install_python.ps1 %PYTHON% %platform%
+  - SET PYTHON="%PYTHON%-%platform%"
 
   # Prepend newly installed Python to the PATH of this build (this cannot be
   # done from inside the powershell script as it would require to restart
@@ -48,6 +49,7 @@ install:
   - python -c "import struct; print(struct.calcsize('P') * 8)"
 
   - SET CMAKE_GENERATOR_PLATFORM=%platform%
+  - SET CMAKE_GENERATOR="Visual Studio 16 2019"
 
   # Install OpenBLAS
   - ps: |
@@ -55,7 +57,6 @@ install:
       $lib = python ./openblas_support.py
       md $env:BLAS_LIBRARIES
       $destination = "$env:BLAS_LIBRARIES/openblas.lib"
-      echo $lib
       cp $lib $destination
       ls $destination
 
