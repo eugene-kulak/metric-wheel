@@ -60,6 +60,8 @@ install:
       cp $lib $destination
       ls $destination
 
+  - python -m pip install mkl
+
   # Install PkgConfig
   - curl -LO %GNOME_BASE_URL%/dependencies/pkg-config_0.26-1_win32.zip
   - curl -LO %GNOME_BASE_URL%/glib/2.28/glib_2.28.8-1_win32.zip
