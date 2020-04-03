@@ -12,6 +12,7 @@ environment:
     BOOST_ROOT: "C:/Libraries/boost_1_71_0"
     GNOME_BASE_URL: "http://ftp.gnome.org/pub/gnome/binaries/win32"
     BLAS_LIBRARIES: "C:/opt/lib"
+    MKL_THREADING_LAYER: GNU
     PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
 
   matrix:
@@ -20,7 +21,6 @@ environment:
     - PYTHON: C:\Python38
 
 platform:
-  - Win32
   - x64
 
 matrix:
