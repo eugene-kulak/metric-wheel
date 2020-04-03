@@ -60,7 +60,7 @@ install:
       cp $lib $destination
       ls $destination
 
-  - python -m pip install mkl
+  #- python -m pip install mkl
 
   # Install PkgConfig
   - curl -LO %GNOME_BASE_URL%/dependencies/pkg-config_0.26-1_win32.zip
