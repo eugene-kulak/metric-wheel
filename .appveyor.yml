@@ -62,7 +62,7 @@ install:
 #      $destination = "$env:BLAS_LIBRARIES/openblas.lib"
 #      cp $lib $destination
 #      ls $destination
-  - vcpkg install git
+  - vcpkg install libgit2
   - vcpkg install openblas
 
   # Install PkgConfig
