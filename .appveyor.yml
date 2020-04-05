@@ -14,6 +14,7 @@ environment:
     BLAS_LIBRARIES: "C:/opt/lib"
     MKL_THREADING_LAYER: GNU
     PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
+    CMAKE_GENERATOR: "Visual Studio 16 2019"
 
   matrix:
     - PYTHON: C:\Python36
@@ -54,9 +55,6 @@ install:
   - python --version
   - python -c "import struct; print(struct.calcsize('P') * 8)"
 
-#  - SET CMAKE_GENERATOR_PLATFORM=%platform%
-  - SET CMAKE_GENERATOR="Visual Studio 16 2019"
-
   # Install OpenBLAS
   - ps: |
       $PYTHON = $env:PYTHON
@@ -85,6 +83,7 @@ build_script:
   - cd %PACKAGE_DIR%
 #    - git checkout %BUILD_COMMIT%
 #    - git apply ..\patches\free_space_in_dir.path
+  - cmake -G
   - python setup.py bdist_wheel
 
 test_script:
