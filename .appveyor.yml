@@ -11,11 +11,10 @@ environment:
     NP_TEST_DEP: "pytest"
     BOOST_ROOT: "C:/Libraries/boost_1_71_0"
     GNOME_BASE_URL: "http://ftp.gnome.org/pub/gnome/binaries/win32"
-    BLAS_LIBRARIES: "C:/opt/lib"
+    #BLAS_LIBRARIES: "C:/opt/lib"
     MKL_THREADING_LAYER: GNU
     PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
     CMAKE_GENERATOR: "Visual Studio 16 2019"
-    MKL_URL: "https://github-production-release-asset-2e65be.s3.amazonaws.com/249880034/6b1f7200-76e6-11ea-82ad-37c3e0edfb8f?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20200405%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200405T064647Z&X-Amz-Expires=300&X-Amz-Signature=0ebfff7f71596f3950772e0eb0b6922c684e47c7cc95074402c412a0b9a87549&X-Amz-SignedHeaders=host&actor_id=0&response-content-disposition=attachment%3B%20filename%3Dw_mkl_2020.1.216.exe.zip&response-content-type=application%2Foctet-stream"
 
   matrix:
 #    - PYTHON: C:\Python36
@@ -56,17 +55,14 @@ install:
   - python -c "import struct; print(struct.calcsize('P') * 8)"
 
   # Install OpenBLAS
-  - ps: |
-      $PYTHON = $env:PYTHON
-      $lib = python ./openblas_support.py
-      md $env:BLAS_LIBRARIES
-      $destination = "$env:BLAS_LIBRARIES/openblas.lib"
-      cp $lib $destination
-      ls $destination
-
-  #- python -m pip install mkl
-  - curl -LO "https://github-production-release-asset-2e65be.s3.amazonaws.com/249880034/6b1f7200-76e6-11ea-82ad-37c3e0edfb8f?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20200405%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200405T064647Z&X-Amz-Expires=300&X-Amz-Signature=0ebfff7f71596f3950772e0eb0b6922c684e47c7cc95074402c412a0b9a87549&X-Amz-SignedHeaders=host&actor_id=0&response-content-disposition=attachment%3B%20filename%3Dw_mkl_2020.1.216.exe.zip&response-content-type=application%2Foctet-stream"
-  - 7z x -y w_mkl_2020.1.216.exe.zip -oC:\MKL\
+#  - ps: |
+#      $PYTHON = $env:PYTHON
+#      $lib = python ./openblas_support.py
+#      md $env:BLAS_LIBRARIES
+#      $destination = "$env:BLAS_LIBRARIES/openblas.lib"
+#      cp $lib $destination
+#      ls $destination
+  - vcpkg install openblas
 
   # Install PkgConfig
   - curl -LO %GNOME_BASE_URL%/dependencies/pkg-config_0.26-1_win32.zip
