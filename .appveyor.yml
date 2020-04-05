@@ -36,7 +36,6 @@ matrix:
 install:
   # Fetch submodules
   - git submodule update --init --recursive
-  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64'
 #  - if %platform% == "x64" SET PYTHON="%PYTHON%-%platform%"
   # Install new Python if necessary
   - ps: .\multibuild\install_python.ps1
