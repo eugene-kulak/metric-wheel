@@ -65,7 +65,7 @@ install:
       ls $destination
 
   #- python -m pip install mkl
-  - curl -LO "%MKL_URL%"
+  - curl -LO %MKL_URL%
   - 7z x -y w_mkl_2020.1.216.exe.zip -oC:\MKL\
 
   # Install PkgConfig
