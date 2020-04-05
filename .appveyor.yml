@@ -83,7 +83,6 @@ build_script:
   - cd %PACKAGE_DIR%
 #    - git checkout %BUILD_COMMIT%
 #    - git apply ..\patches\free_space_in_dir.path
-  - cmake -G
   - python setup.py bdist_wheel
 
 test_script:
