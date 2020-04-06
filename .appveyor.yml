@@ -50,7 +50,6 @@ install:
   # the parent CMD process).
   - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
   - SET PATH=%PATH%;%BLAS_ROOT%\lib
-  - mv %BLAS_ROOT%\lib\libopenblas.a %BLAS_ROOT%\lib\libopenblas.lib
   - python -m pip install -U pip setuptools wheel urllib3
 #  - SET
   - SET PATH=%PATH:C:\Program Files\Git\usr\bin;=%
@@ -71,7 +70,8 @@ install:
 #  - curl -L -o ./open_blas_32.zip https://sourceforge.net/projects/openblas/files/v0.2.15/OpenBLAS-v0.2.15-Win32.zip/download
 #  - 7z x -y ./open_blas_32.zip -oC:\openblas > nul
   - 7z x -y ./open_blas_64.zip -oC:\openblas > nul
-  - dir %BLAS_ROOT%
+  - mv %BLAS_ROOT%\lib\libopenblas.a %BLAS_ROOT%\lib\libopenblas.lib
+  - dir %BLAS_ROOT%\lib
 
   # Install PkgConfig
   - curl -LO %GNOME_BASE_URL%/dependencies/pkg-config_0.26-1_win32.zip
