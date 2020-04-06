@@ -16,7 +16,8 @@ environment:
     PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
 #    CMAKE_GENERATOR: "MinGW Makefiles"
     CMAKE_GENERATOR: "Visual Studio 2019"
-    BLAS_ROOT: C:\openblas\OpenBLAS-v0.2.15-Win64-int32
+#    BLAS_ROOT: C:\openblas\OpenBLAS-v0.2.15-Win64-int32
+    MINICONDA: C:\Miniconda38-x64
 
   matrix:
 #    - PYTHON: C:\Python36
@@ -50,7 +51,25 @@ install:
   # done from inside the powershell script as it would require to restart
   # the parent CMD process).
   - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
-  - SET PATH=%PATH%;%BLAS_ROOT%\lib
+
+  # Build OpenBLAS
+  - SET PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
+  - conda update -n base conda
+  - conda config --add channels conda-forge
+  - conda install -y cmake flang clangdev perl libflang
+  - conda install -y -c isuruf kitware-ninja
+  - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build/vcvars64.bat"
+  - set "LIB=%CONDA_INSTALL_LOCN%\Library\lib;%LIB%"
+  - set "CPATH=%CONDA_INSTALL_LOCN%\Library\include;%CPATH%
+  - mkdir build
+  - cd build
+  - cmake .. -G "Ninja" -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_C_COMPILER=clang-cl -DCMAKE_Fortran_COMPILER=flang -DBUILD_WITHOUT_LAPACK=no -DNOFORTRAN=0 -DDYNAMIC_ARCH=ON -DCMAKE_BUILD_TYPE=Release
+  - cmake --build . --config Release
+  # install OpenBLAS
+  - cmake --install . --prefix c:\opt -v
+
+
+#  - SET PATH=%PATH%;%BLAS_ROOT%\lib
   - python -m pip install -U pip setuptools wheel urllib3
 #  - SET
   - SET PATH=%PATH:C:\Program Files\Git\usr\bin;=%
