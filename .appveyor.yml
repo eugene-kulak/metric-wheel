@@ -94,6 +94,7 @@ build_script:
   - SET BLAS_ROOT='C:\openblas\OpenBLAS-v0.2.15-Win64-int32'
   - SET CC='gcc'
   - SET CXX='g++'
+  - where cmake
   - SET CMAKE_EXE='cmake'
 #  - %CMAKE_EXE% --version
   - python setup.py bdist_wheel
