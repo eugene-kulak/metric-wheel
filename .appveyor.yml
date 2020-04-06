@@ -70,7 +70,7 @@ install:
 #  - curl -L -o ./open_blas_32.zip https://sourceforge.net/projects/openblas/files/v0.2.15/OpenBLAS-v0.2.15-Win32.zip/download
 #  - 7z x -y ./open_blas_32.zip -oC:\openblas > nul
   - 7z x -y ./open_blas_64.zip -oC:\openblas > nul
-  - rename %BLAS_ROOT%\lib\libopenblas.a libopenblas.lib
+  #- rename %BLAS_ROOT%\lib\libopenblas.a libopenblas.lib
   - dir %BLAS_ROOT%\lib
 
   # Install PkgConfig
