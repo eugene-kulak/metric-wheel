@@ -40,15 +40,15 @@ install:
 #  - if %platform% == "x64" SET PYTHON="%PYTHON%-%platform%"
   # Install new Python if necessary
   - ps: .\multibuild\install_python.ps1
-  - choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
-  - SET PATH='C:\Program Files\CMake\bin';%PATH%
-  - SET CMAKE_EXE='C:\Program Files\CMake\bin\cmake.exe'
+#  - choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+#  - SET PATH='C:\Program Files\CMake\bin';%PATH%
+#  - SET CMAKE_EXE='C:\Program Files\CMake\bin\cmake.exe'
   - choco install mingw
 
   # Prepend newly installed Python to the PATH of this build (this cannot be
   # done from inside the powershell script as it would require to restart
   # the parent CMD process).
-  - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+#  - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
   - python -m pip install -U pip setuptools wheel urllib3
 
   # Fix MSVC builds for 64-bit Python. See:
@@ -94,6 +94,8 @@ build_script:
   - SET BLAS_ROOT='C:\openblas\OpenBLAS-v0.2.15-Win64-int32'
   - SET CC='gcc'
   - SET CXX='g++'
+  - SET CMAKE_EXE='cmake'
+  - %CMAKE_EXE --version
   - python setup.py bdist_wheel
 
 test_script:
