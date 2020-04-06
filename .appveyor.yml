@@ -54,7 +54,7 @@ install:
 
   # Build OpenBLAS
   - SET PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
-  - conda update -n base conda
+  - conda update -n base conda -y
   - conda config --add channels conda-forge
   - conda install -y cmake flang clangdev perl libflang
   - conda install -y -c isuruf kitware-ninja
