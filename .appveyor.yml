@@ -15,7 +15,7 @@ environment:
     MKL_THREADING_LAYER: GNU
     PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
     CMAKE_GENERATOR: "Visual Studio 16 2019"
-    BLAS_ROOT: "C:/openblas/OpenBLAS-v0.2.15-Win64-int32/"
+    BLAS_ROOT: "C:\openblas\OpenBLAS-v0.2.15-Win64-int32"
 
   matrix:
 #    - PYTHON: C:\Python36
