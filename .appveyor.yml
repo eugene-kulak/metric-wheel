@@ -15,6 +15,7 @@ environment:
     MKL_THREADING_LAYER: GNU
     PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
     CMAKE_GENERATOR: "Visual Studio 16 2019"
+    BLAS_ROOT: "C:/openblas/OpenBLAS-v0.2.15-Win64-int32/"
 
   matrix:
 #    - PYTHON: C:\Python36
@@ -62,7 +63,6 @@ install:
 #      $destination = "$env:BLAS_LIBRARIES/openblas.lib"
 #      cp $lib $destination
 #      ls $destination
-  - SET BLAS_ROOT="C:/openblas/OpenBLAS-v0.2.15-Win64-int32/"
   - curl -L -o ./open_blas_64.zip https://sourceforge.net/projects/openblas/files/v0.2.15/OpenBLAS-v0.2.15-Win64-int32.zip/download
   - curl -L -o ./open_blas_32.zip https://sourceforge.net/projects/openblas/files/v0.2.15/OpenBLAS-v0.2.15-Win32.zip/download
   - 7z x -y ./open_blas_32.zip -oC:\openblas > nul
