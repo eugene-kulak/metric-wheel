@@ -12,16 +12,17 @@ environment:
     BOOST_ROOT: "C:/Libraries/boost_1_71_0"
     GNOME_BASE_URL: "http://ftp.gnome.org/pub/gnome/binaries/win32"
     #BLAS_LIBRARIES: "C:/opt/lib"
-    MKL_THREADING_LAYER: GNU
+#    MKL_THREADING_LAYER: GNU
     PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
-    CMAKE_GENERATOR: "MinGW Makefiles"
+#    CMAKE_GENERATOR: "MinGW Makefiles"
+    CMAKE_GENERATOR: "Visual Studio 2019"
     BLAS_ROOT: C:\openblas\OpenBLAS-v0.2.15-Win64-int32
 
   matrix:
 #    - PYTHON: C:\Python36
 #      CMAKE_GENERATOR_PLATFORM: Win32
     - PYTHON: C:\Python36-x64
-#      CMAKE_GENERATOR_PLATFORM: x64
+      CMAKE_GENERATOR_PLATFORM: x64
     - PYTHON: C:\Python37
 #      CMAKE_GENERATOR_PLATFORM: Win32
     - PYTHON: C:\Python37-x64
@@ -43,7 +44,7 @@ install:
 #  - choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
 #  - SET PATH='C:\Program Files\CMake\bin';%PATH%
 #  - SET CMAKE_EXE='C:\Program Files\CMake\bin\cmake.exe'
-  - choco install mingw
+#  - choco install mingw
 
   # Prepend newly installed Python to the PATH of this build (this cannot be
   # done from inside the powershell script as it would require to restart
@@ -96,9 +97,9 @@ build_script:
 #    - git apply ..\patches\free_space_in_dir.path
 #  - %CMAKE_EXE% .
   - SET BLAS_ROOT='C:\openblas\OpenBLAS-v0.2.15-Win64-int32'
-  - SET CC='gcc'
-  - SET CXX='g++'
-  - SET CMAKE_EXE="C:\Program Files (x86)\\CMake\\bin\\cmake.exe"
+#  - SET CC='gcc'
+#  - SET CXX='g++'
+#  - SET CMAKE_EXE="C:\Program Files (x86)\\CMake\\bin\\cmake.exe"
   - python setup.py bdist_wheel
 
 test_script:
