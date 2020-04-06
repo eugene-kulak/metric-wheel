@@ -50,6 +50,7 @@ install:
   # the parent CMD process).
   - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
   - SET PATH=%PATH%;%BLAS_ROOT%\lib
+  - mv %BLAS_ROOT%\lib\libopenblas.a %BLAS_ROOT%\lib\libopenblas.lib
   - python -m pip install -U pip setuptools wheel urllib3
 #  - SET
   - SET PATH=%PATH:C:\Program Files\Git\usr\bin;=%
