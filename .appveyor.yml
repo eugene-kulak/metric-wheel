@@ -62,8 +62,11 @@ install:
 #      $destination = "$env:BLAS_LIBRARIES/openblas.lib"
 #      cp $lib $destination
 #      ls $destination
-  - vcpkg install libgit2
-  - vcpkg install openblas
+  - SET BLAS_ROOT="C:/openblas/OpenBLAS-v0.2.15-Win64-int32/"
+  - curl -L -o ./open_blas_64.zip https://sourceforge.net/projects/openblas/files/v0.2.15/OpenBLAS-v0.2.15-Win64-int32.zip/download
+  - curl -L -o ./open_blas_32.zip https://sourceforge.net/projects/openblas/files/v0.2.15/OpenBLAS-v0.2.15-Win32.zip/download
+  - 7z x -y ./open_blas_32.zip -oC:\openblas > nul
+  - 7z x -y ./open_blas_64.zip -oC:\openblas > nul
 
   # Install PkgConfig
   - curl -LO %GNOME_BASE_URL%/dependencies/pkg-config_0.26-1_win32.zip
