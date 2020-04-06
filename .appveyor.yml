@@ -95,7 +95,7 @@ build_script:
   - SET CC='gcc'
   - SET CXX='g++'
   - SET CMAKE_EXE='C:\Program Files (x86)\CMake\bin\cmake.exe'
-  - SET
+  - 'C:\Program Files (x86)\CMake\bin\cmake.exe' --version
   - python setup.py bdist_wheel
 
 test_script:
