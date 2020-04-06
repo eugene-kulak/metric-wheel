@@ -42,7 +42,7 @@ install:
   - ps: .\multibuild\install_python.ps1
   - choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
   - SET PATH="C:\\Program Files\\CMake\\bin\\";%PATH%
-  - cmake --version
+  - SET CMAKE_EXE="C:\\Program Files\\CMake\\bin\\make.exe"
 
   # Prepend newly installed Python to the PATH of this build (this cannot be
   # done from inside the powershell script as it would require to restart
