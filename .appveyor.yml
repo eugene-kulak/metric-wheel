@@ -51,25 +51,26 @@ install:
   # done from inside the powershell script as it would require to restart
   # the parent CMD process).
   - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+  - vcpkg install openblas:x64-windows
 
   # Build OpenBLAS
-  - git clone https://github.com/xianyi/OpenBLAS.git
-  - cd OpenBLAS
-  - '%MINICONDA%\Scripts\activate'
+#  - git clone https://github.com/xianyi/OpenBLAS.git
+#  - cd OpenBLAS
+#  - '%MINICONDA%\Scripts\activate'
 #  - SET PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
-  - conda update -n base conda -y
-  - conda config --add channels conda-forge
-  - conda install -y cmake flang clangdev perl libflang
-  - conda install -y -c isuruf kitware-ninja
-  - '"C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build/vcvars64.bat"'
-  - set "LIB=%CONDA_INSTALL_LOCN%\Library\lib;%LIB%"
-  - set "CPATH=%CONDA_INSTALL_LOCN%\Library\include;%CPATH%
-  - mkdir build
-  - cd build
-  - cmake .. -G "Ninja" -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_C_COMPILER=clang-cl -DCMAKE_Fortran_COMPILER=flang -DBUILD_WITHOUT_LAPACK=no -DNOFORTRAN=0 -DDYNAMIC_ARCH=ON -DCMAKE_BUILD_TYPE=Release
-  - cmake --build . --config Release
-  # install OpenBLAS
-  - cmake --install . --prefix c:\opt -v
+#  - conda update -n base conda -y
+#  - conda config --add channels conda-forge
+#  - conda install -y cmake flang clangdev perl libflang
+#  - conda install -y -c isuruf kitware-ninja
+#  - '"C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build/vcvars64.bat"'
+#  - set "LIB=%CONDA_INSTALL_LOCN%\Library\lib;%LIB%"
+#  - set "CPATH=%CONDA_INSTALL_LOCN%\Library\include;%CPATH%
+#  - mkdir build
+#  - cd build
+#  - cmake .. -G "Ninja" -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_C_COMPILER=clang-cl -DCMAKE_Fortran_COMPILER=flang -DBUILD_WITHOUT_LAPACK=ON -DNOFORTRAN=0 -DDYNAMIC_ARCH=ON -DCMAKE_BUILD_TYPE=Release
+#  - cmake --build . --config Release
+#   install OpenBLAS
+#  - cmake --install . --prefix c:\opt -v
 
 
 #  - SET PATH=%PATH%;%BLAS_ROOT%\lib
@@ -89,12 +90,12 @@ install:
 #      $destination = "$env:BLAS_LIBRARIES/openblas.lib"
 #      cp $lib $destination
 #      ls $destination
-  - curl -L -o ./open_blas_64.zip https://sourceforge.net/projects/openblas/files/v0.2.15/OpenBLAS-v0.2.15-Win64-int32.zip/download
+#  - curl -L -o ./open_blas_64.zip https://sourceforge.net/projects/openblas/files/v0.2.15/OpenBLAS-v0.2.15-Win64-int32.zip/download
 #  - curl -L -o ./open_blas_32.zip https://sourceforge.net/projects/openblas/files/v0.2.15/OpenBLAS-v0.2.15-Win32.zip/download
 #  - 7z x -y ./open_blas_32.zip -oC:\openblas > nul
-  - 7z x -y ./open_blas_64.zip -oC:\openblas > nul
-  - rename %BLAS_ROOT%\lib\libopenblas.a libopenblas.lib
-  - dir %BLAS_ROOT%\lib
+#  - 7z x -y ./open_blas_64.zip -oC:\openblas > nul
+#  - rename %BLAS_ROOT%\lib\libopenblas.a libopenblas.lib
+#  - dir %BLAS_ROOT%\lib
 
   # Install PkgConfig
   - curl -LO %GNOME_BASE_URL%/dependencies/pkg-config_0.26-1_win32.zip
@@ -122,7 +123,7 @@ build_script:
 #  - SET CC='gcc'
 #  - SET CXX='g++'
 #  - SET CMAKE_EXE="C:\Program Files (x86)\\CMake\\bin\\cmake.exe"
-#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 #  - curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-ssh.sh' | bash -e -
   - python setup.py bdist_wheel
 
