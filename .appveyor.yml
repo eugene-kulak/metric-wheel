@@ -41,8 +41,8 @@ install:
   # Install new Python if necessary
   - ps: .\multibuild\install_python.ps1
 #  - choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
-#  - SET PATH="C:\\Program Files\\CMake\\bin\\";%PATH%
-#  - SET CMAKE_EXE="C:\\Program Files\\CMake\\bin\\cmake.exe"
+  - SET PATH="C:\\Program Files\\CMake\\bin\\";%PATH%
+  - SET CMAKE_EXE="C:\\Program Files\\CMake\\bin\\cmake.exe"
   - choco install mingw
 
   # Prepend newly installed Python to the PATH of this build (this cannot be
