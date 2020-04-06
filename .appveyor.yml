@@ -49,6 +49,7 @@ install:
   # done from inside the powershell script as it would require to restart
   # the parent CMD process).
   - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
+  - SET PATH=%PATH%;%BLAS_ROOT%\lib
   - python -m pip install -U pip setuptools wheel urllib3
 #  - SET
   - SET PATH=%PATH:C:\Program Files\Git\usr\bin;=%
