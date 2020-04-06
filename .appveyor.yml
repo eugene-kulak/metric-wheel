@@ -36,7 +36,6 @@ matrix:
     fast_finish: true
 
 install:
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   # Fetch submodules
   - git submodule update --init --recursive
 #  - if %platform% == "x64" SET PYTHON="%PYTHON%-%platform%"
