@@ -43,6 +43,7 @@ install:
   - choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
   - SET PATH="C:\\Program Files\\CMake\\bin\\";%PATH%
   - SET CMAKE_EXE="C:\\Program Files\\CMake\\bin\\cmake.exe"
+  - choco install mingw
 
   # Prepend newly installed Python to the PATH of this build (this cannot be
   # done from inside the powershell script as it would require to restart
