@@ -58,7 +58,7 @@ install:
   - conda config --add channels conda-forge
   - conda install -y cmake flang clangdev perl libflang
   - conda install -y -c isuruf kitware-ninja
-  - "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build/vcvars64.bat"
+  - '"C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build/vcvars64.bat"'
   - set "LIB=%CONDA_INSTALL_LOCN%\Library\lib;%LIB%"
   - set "CPATH=%CONDA_INSTALL_LOCN%\Library\include;%CPATH%
   - mkdir build
