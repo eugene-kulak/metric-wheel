@@ -41,8 +41,8 @@ install:
   # Install new Python if necessary
   - ps: .\multibuild\install_python.ps1
   - choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
-  - SET PATH="C:\\Program Files\\CMake\\bin\\";%PATH%
-  - SET CMAKE_EXE="C:\\Program Files\\CMake\\bin\\cmake.exe"
+  - SET PATH='C:\Program Files\CMake\bin';%PATH%
+  - SET CMAKE_EXE='C:\Program Files\CMake\bin\cmake.exe'
   - choco install mingw
 
   # Prepend newly installed Python to the PATH of this build (this cannot be
@@ -92,8 +92,8 @@ build_script:
 #    - git apply ..\patches\free_space_in_dir.path
 #  - %CMAKE_EXE% .
   - SET BLAS_ROOT='C:\openblas\OpenBLAS-v0.2.15-Win64-int32'
-  - SET CC='C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\gcc.exe'
-  - SET CXX='C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\g++.exe'
+  - SET CC='gcc'
+  - SET CXX='g++'
   - python setup.py bdist_wheel
 
 test_script:
