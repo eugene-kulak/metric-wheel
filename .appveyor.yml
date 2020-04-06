@@ -55,7 +55,8 @@ install:
   # Build OpenBLAS
   - git clone https://github.com/xianyi/OpenBLAS.git
   - cd OpenBLAS
-  - SET PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
+  - '%MINICONDA%\Scripts\activate'
+#  - SET PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
   - conda update -n base conda -y
   - conda config --add channels conda-forge
   - conda install -y cmake flang clangdev perl libflang
