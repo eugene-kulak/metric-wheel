@@ -71,7 +71,7 @@ install:
 #  - curl -L -o ./open_blas_32.zip https://sourceforge.net/projects/openblas/files/v0.2.15/OpenBLAS-v0.2.15-Win32.zip/download
 #  - 7z x -y ./open_blas_32.zip -oC:\openblas > nul
   - 7z x -y ./open_blas_64.zip -oC:\openblas > nul
-  #- rename %BLAS_ROOT%\lib\libopenblas.a libopenblas.lib
+  - rename %BLAS_ROOT%\lib\libopenblas.a libopenblas.lib
   - dir %BLAS_ROOT%\lib
 
   # Install PkgConfig
@@ -100,7 +100,7 @@ build_script:
 #  - SET CC='gcc'
 #  - SET CXX='g++'
 #  - SET CMAKE_EXE="C:\Program Files (x86)\\CMake\\bin\\cmake.exe"
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 #  - curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-ssh.sh' | bash -e -
   - python setup.py bdist_wheel
 
