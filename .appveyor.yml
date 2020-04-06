@@ -44,6 +44,8 @@ install:
   - SET PATH="C:\\Program Files\\CMake\\bin\\";%PATH%
   - SET CMAKE_EXE="C:\\Program Files\\CMake\\bin\\cmake.exe"
   - choco install mingw
+  - SET CC='C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\gcc.exe'
+  - SET CXX='C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\g++.exe'
 
   # Prepend newly installed Python to the PATH of this build (this cannot be
   # done from inside the powershell script as it would require to restart
