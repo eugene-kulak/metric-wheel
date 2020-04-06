@@ -53,6 +53,8 @@ install:
   - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
 
   # Build OpenBLAS
+  - git clone https://github.com/xianyi/OpenBLAS.git
+  - cd OpenBLAS
   - SET PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
   - conda update -n base conda -y
   - conda config --add channels conda-forge
