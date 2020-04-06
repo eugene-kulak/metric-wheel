@@ -40,7 +40,7 @@ install:
 #  - if %platform% == "x64" SET PYTHON="%PYTHON%-%platform%"
   # Install new Python if necessary
   - ps: .\multibuild\install_python.ps1
-  - choco install cmake
+  - choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
   - cmake --version
 
   # Prepend newly installed Python to the PATH of this build (this cannot be
