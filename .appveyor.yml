@@ -90,6 +90,7 @@ build_script:
 #    - git checkout %BUILD_COMMIT%
 #    - git apply ..\patches\free_space_in_dir.path
 #  - %CMAKE_EXE% .
+  - SET BLAS_ROOT='C:\openblas\OpenBLAS-v0.2.15-Win64-int32'
   - python setup.py bdist_wheel
 
 test_script:
