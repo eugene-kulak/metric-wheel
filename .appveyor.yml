@@ -14,7 +14,7 @@ environment:
     #BLAS_LIBRARIES: "C:/opt/lib"
     MKL_THREADING_LAYER: GNU
     PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
-    #CMAKE_GENERATOR: "Visual Studio 16 2019"
+    CMAKE_GENERATOR: "MinGW Makefiles"
     BLAS_ROOT: C:\openblas\OpenBLAS-v0.2.15-Win64-int32
 
   matrix:
@@ -40,7 +40,7 @@ install:
 #  - if %platform% == "x64" SET PYTHON="%PYTHON%-%platform%"
   # Install new Python if necessary
   - ps: .\multibuild\install_python.ps1
-  - choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+#  - choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
   - SET PATH="C:\\Program Files\\CMake\\bin\\";%PATH%
   - SET CMAKE_EXE="C:\\Program Files\\CMake\\bin\\cmake.exe"
   - choco install mingw
