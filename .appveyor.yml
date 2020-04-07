@@ -51,7 +51,8 @@ install:
   # done from inside the powershell script as it would require to restart
   # the parent CMD process).
   - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
-#  - vcpkg install openblas:x64-windows
+  - vcpkg install git
+  - vcpkg install openblas:x64-windows
 
   # Build OpenBLAS
 #  - git clone https://github.com/xianyi/OpenBLAS.git
