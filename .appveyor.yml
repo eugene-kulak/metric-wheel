@@ -36,6 +36,8 @@ install:
   - '%MINICONDA%\Scripts\activate.bat'
   - conda update -n base conda -y
   - conda config --add channels conda-forge
+  - conda create --name build_env -y python=%PYTHON%
+  - conda activate build_env
   - conda install -y libopenblas openblas
 
   # Install PkgConfig
@@ -48,8 +50,6 @@ install:
 
 build_script:
   # Check that we have the expected version and architecture for Python
-  - conda create --name build_env -y python=%PYTHON%
-  - conda activate build_env
   - python -c "import struct; print(struct.calcsize('P') * 8)"
 
   # Install the dependencies of the project.
