@@ -13,6 +13,7 @@ environment:
     PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
     CMAKE_GENERATOR: "Visual Studio 16 2019"
     MINICONDA: C:\Miniconda38-x64
+    PYPI_SERVER: https://test.pypi.org/legacy/
 
   matrix:
     - PYTHON: 3.8
@@ -67,6 +68,7 @@ test_script:
   - python -m pip install %NP_TEST_DEP%
 
   # install from wheel
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   - python -m pip install --pre --no-index --find-links %PACKAGE_DIR%\dist\%PACKAGE_NAME%
   - pytest tests
 
@@ -74,8 +76,8 @@ artifacts:
   - path: "%PACKAGE_DIR%\\dist\\*"
 
 on_success:
-  # Upload the generated wheel package to Rackspace
-  # On Windows, Apache Libcloud cannot find a standard CA cert bundle so we
-  # disable the ssl checks.
-  - python -m pip install wheelhouse-uploader
-  - "python -m wheelhouse_uploader upload --no-ssl-check --local-folder=%PACKAGE_DIR%\\dist --no-update-index wheels"
+  # Upload to the selected PYPI server
+  - python -m pip install twine
+  - SET TWINE_USERNAME=__token__
+  - SET TWINE_PASSWORD=TODO_API_SECRET
+  - twine upload --repository-url %PYPI_SERVER% %PACKAGE_DIR%\dist\*.whl
