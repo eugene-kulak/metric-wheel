@@ -72,6 +72,7 @@ build_script:
 
 test_script:
   # create test env
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   - conda create --name test_env -y
   - CALL conda.bat activate test_env
   - python -m pip install %NP_TEST_DEP%
