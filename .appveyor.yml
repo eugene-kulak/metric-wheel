@@ -12,7 +12,7 @@ environment:
     BOOST_ROOT: "C:/Libraries/boost_1_71_0"
     GNOME_BASE_URL: "http://ftp.gnome.org/pub/gnome/binaries/win32"
     PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
-    CMAKE_GENERATOR: "Visual Studio 2019"
+    CMAKE_GENERATOR: "Visual Studio 16 2019"
     MINICONDA: C:\Miniconda38-x64
 
   matrix:
