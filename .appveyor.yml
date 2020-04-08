@@ -11,12 +11,8 @@ environment:
     NP_TEST_DEP: "pytest"
     BOOST_ROOT: "C:/Libraries/boost_1_71_0"
     GNOME_BASE_URL: "http://ftp.gnome.org/pub/gnome/binaries/win32"
-    #BLAS_LIBRARIES: "C:/opt/lib"
-#    MKL_THREADING_LAYER: GNU
     PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
-#    CMAKE_GENERATOR: "MinGW Makefiles"
     CMAKE_GENERATOR: "Visual Studio 2019"
-#    BLAS_ROOT: C:\openblas\OpenBLAS-v0.2.15-Win64-int32
     MINICONDA: C:\Miniconda38-x64
 
   matrix:
@@ -42,61 +38,16 @@ install:
 #  - if %platform% == "x64" SET PYTHON="%PYTHON%-%platform%"
   # Install new Python if necessary
   - ps: .\multibuild\install_python.ps1
-#  - choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
-#  - SET PATH='C:\Program Files\CMake\bin';%PATH%
-#  - SET CMAKE_EXE='C:\Program Files\CMake\bin\cmake.exe'
-#  - choco install mingw
 
-  # Prepend newly installed Python to the PATH of this build (this cannot be
-  # done from inside the powershell script as it would require to restart
-  # the parent CMD process).
-  - SET PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
-  - vcpkg install git
-  - vcpkg install openblas:x64-windows
-
-  # Build OpenBLAS
-#  - git clone https://github.com/xianyi/OpenBLAS.git
-#  - cd OpenBLAS
-#  - '%MINICONDA%\Scripts\activate'
-#  - SET PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
-#  - conda update -n base conda -y
-#  - conda config --add channels conda-forge
-#  - conda install -y cmake flang clangdev perl libflang
-#  - conda install -y -c isuruf kitware-ninja
-#  - '"C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Auxiliary/Build/vcvars64.bat"'
-#  - set "LIB=%CONDA_INSTALL_LOCN%\Library\lib;%LIB%"
-#  - set "CPATH=%CONDA_INSTALL_LOCN%\Library\include;%CPATH%
-#  - mkdir build
-#  - cd build
-#  - cmake .. -G "Ninja" -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_C_COMPILER=clang-cl -DCMAKE_Fortran_COMPILER=flang -DBUILD_WITHOUT_LAPACK=ON -DNOFORTRAN=0 -DDYNAMIC_ARCH=ON -DCMAKE_BUILD_TYPE=Release
-#  - cmake --build . --config Release
-#   install OpenBLAS
-#  - cmake --install . --prefix c:\opt -v
-
+  # install OpenBLAS
+  - '%MINICONDA%\Scripts\activate'
+  - SET PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
+  - conda update -n base conda -y
+  - conda config --add channels conda-forge
+  - conda install libopenblas openblas
 
 #  - SET PATH=%PATH%;%BLAS_ROOT%\lib
   - python -m pip install -U pip setuptools wheel urllib3
-#  - SET
-  - SET PATH=%PATH:C:\Program Files\Git\usr\bin;=%
-
-  # Fix MSVC builds for 64-bit Python. See:
-  # http://stackoverflow.com/questions/32091593/cannot-install-windows-sdk-7-1-on-windows-10
-#  - echo "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 > "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\amd64/vcvars64.bat"
-
-  # Install OpenBLAS
-#  - ps: |
-#      $PYTHON = $env:PYTHON
-#      $lib = python ./openblas_support.py
-#      md $env:BLAS_LIBRARIES
-#      $destination = "$env:BLAS_LIBRARIES/openblas.lib"
-#      cp $lib $destination
-#      ls $destination
-#  - curl -L -o ./open_blas_64.zip https://sourceforge.net/projects/openblas/files/v0.2.15/OpenBLAS-v0.2.15-Win64-int32.zip/download
-#  - curl -L -o ./open_blas_32.zip https://sourceforge.net/projects/openblas/files/v0.2.15/OpenBLAS-v0.2.15-Win32.zip/download
-#  - 7z x -y ./open_blas_32.zip -oC:\openblas > nul
-#  - 7z x -y ./open_blas_64.zip -oC:\openblas > nul
-#  - rename %BLAS_ROOT%\lib\libopenblas.a libopenblas.lib
-#  - dir %BLAS_ROOT%\lib
 
   # Install PkgConfig
   - curl -LO %GNOME_BASE_URL%/dependencies/pkg-config_0.26-1_win32.zip
@@ -117,15 +68,6 @@ build_script:
   # Build wheel
   - python -m pip install wheel
   - cd %PACKAGE_DIR%
-#    - git checkout %BUILD_COMMIT%
-#    - git apply ..\patches\free_space_in_dir.path
-#  - %CMAKE_EXE% .
-  - SET BLAS_ROOT='C:\openblas\OpenBLAS-v0.2.15-Win64-int32\lib'
-#  - SET CC='gcc'
-#  - SET CXX='g++'
-#  - SET CMAKE_EXE="C:\Program Files (x86)\\CMake\\bin\\cmake.exe"
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-#  - curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-ssh.sh' | bash -e -
   - python setup.py bdist_wheel
 
 test_script:
