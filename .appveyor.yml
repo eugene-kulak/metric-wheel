@@ -7,7 +7,6 @@ environment:
     PACKAGE_DIR: metric/python
     PACKAGE_NAME: metric-py
     BUILD_COMMIT: master
-    NP_BUILD_DEP: "auditwheel==3.1.0"
     NP_TEST_DEP: "pytest numpy"
     BOOST_ROOT: "C:/Libraries/boost_1_71_0"
     GNOME_BASE_URL: "http://ftp.gnome.org/pub/gnome/binaries/win32"
@@ -16,18 +15,13 @@ environment:
     MINICONDA: C:\Miniconda38-x64
 
   matrix:
-#    - PYTHON: C:\Python36
-#      CMAKE_GENERATOR_PLATFORM: Win32
-    - PYTHON: C:\Python36-x64
-      CMAKE_GENERATOR_PLATFORM: x64
-    - PYTHON: C:\Python37
-#      CMAKE_GENERATOR_PLATFORM: Win32
-    - PYTHON: C:\Python37-x64
-#      CMAKE_GENERATOR_PLATFORM: x64
-    - PYTHON: C:\Python38
-#      CMAKE_GENERATOR_PLATFORM: Win32
-    - PYTHON: C:\Python38-x64
-#      CMAKE_GENERATOR_PLATFORM: x64
+    - PYTHON: 3.6
+    - PYTHON: 3.7
+    - PYTHON: 3.8
+
+platform:
+  - x64
+  - Win32
 
 matrix:
     fast_finish: true
@@ -37,17 +31,13 @@ install:
   - git submodule update --init --recursive
 #  - if %platform% == "x64" SET PYTHON="%PYTHON%-%platform%"
   # Install new Python if necessary
-  - ps: .\multibuild\install_python.ps1
+  #- ps: .\multibuild\install_python.ps1
 
   # install OpenBLAS
-  - '%MINICONDA%\Scripts\activate'
-  - SET PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
+  - '%MINICONDA%\Scripts\activate.bat'
   - conda update -n base conda -y
   - conda config --add channels conda-forge
   - conda install -y libopenblas openblas
-
-#  - SET PATH=%PATH%;%BLAS_ROOT%\lib
-  - python -m pip install -U pip setuptools wheel urllib3
 
   # Install PkgConfig
   - curl -LO %GNOME_BASE_URL%/dependencies/pkg-config_0.26-1_win32.zip
@@ -59,22 +49,22 @@ install:
 
 build_script:
   # Check that we have the expected version and architecture for Python
-  - python --version
+  - conda create --name build_env -y python=%PYTHON%
+  - conda activate build_env
   - python -c "import struct; print(struct.calcsize('P') * 8)"
 
   # Install the dependencies of the project.
-  - python -m pip install %NP_BUILD_DEP%
+  - SET CMAKE_GENERATOR_PLATFORM=%platform%
+  - python -m pip install -U pip setuptools wheel urllib3
 
   # Build wheel
-  - python -m pip install wheel
   - cd %PACKAGE_DIR%
   - python setup.py bdist_wheel
 
 test_script:
   # create test env
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-  - conda create --name test_env -y
-  - CALL conda.bat activate test_env
+  - conda create --name test_env -y python=%PYTHON%
+  - conda activate test_env
   - python -m pip install %NP_TEST_DEP%
 
   # install from wheel
