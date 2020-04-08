@@ -44,7 +44,7 @@ install:
   - SET PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
   - conda update -n base conda -y
   - conda config --add channels conda-forge
-  - conda install libopenblas openblas
+  - conda install -y libopenblas openblas
 
 #  - SET PATH=%PATH%;%BLAS_ROOT%\lib
   - python -m pip install -U pip setuptools wheel urllib3
