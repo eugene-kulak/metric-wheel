@@ -8,7 +8,7 @@ environment:
     PACKAGE_NAME: metric-py
     BUILD_COMMIT: master
     NP_BUILD_DEP: "auditwheel==3.1.0"
-    NP_TEST_DEP: "pytest"
+    NP_TEST_DEP: "pytest numpy"
     BOOST_ROOT: "C:/Libraries/boost_1_71_0"
     GNOME_BASE_URL: "http://ftp.gnome.org/pub/gnome/binaries/win32"
     PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
@@ -72,28 +72,21 @@ build_script:
 
 test_script:
   # create test env
-  - virtualenv --python %PYTHON%\Python.exe test_env
+  - virtualenv test_env
   - test_env\Scripts\activate.bat
   - where python
   - python -m pip install %NP_TEST_DEP%
 
   # install from wheel
-  - python -m pip install --pre --no-index --find-links %REPO_DIR%\dist\ %PACKAGE_NAME%
-
-  # Change into an innocuous directory and find tests from installation
-  - mkdir for_testing
-  - cd for_testing
-  - python --version
-  - python -c "import astropy; astropy.test(remote_data='none')"
-  - cd ..
+  - python -m pip install --pre --no-index --find-links %PACKAGE_DIR%\dist\%PACKAGE_NAME%
+  - pytest tests
 
 artifacts:
-  - path: "%REPO_DIR%\\dist\\*"
+  - path: "%PACKAGE_DIR%\\dist\\*"
 
 on_success:
   # Upload the generated wheel package to Rackspace
   # On Windows, Apache Libcloud cannot find a standard CA cert bundle so we
   # disable the ssl checks.
   - python -m pip install wheelhouse-uploader
-  - "python -m wheelhouse_uploader upload
-    --no-ssl-check --local-folder=%REPO_DIR%\\dist --no-update-index wheels"
+  - "python -m wheelhouse_uploader upload --no-ssl-check --local-folder=%PACKAGE_DIR%\\dist --no-update-index wheels"
