@@ -37,7 +37,6 @@ install:
   - conda update -n base conda -y
   - conda config --add channels conda-forge
   - conda install -y libopenblas openblas
-  - SET PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
 
   # Install PkgConfig
   - curl -LO %GNOME_BASE_URL%/dependencies/pkg-config_0.26-1_win32.zip
@@ -59,6 +58,7 @@ build_script:
 
   # Build wheel
   - cd %PACKAGE_DIR%
+  - SET PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
   - python setup.py bdist_wheel
 
 test_script:
