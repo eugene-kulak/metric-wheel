@@ -72,9 +72,8 @@ build_script:
 
 test_script:
   # create test env
-  - virtualenv test_env
-  - test_env\Scripts\activate.bat
-  - where python
+  - conda create --name test_env -y
+  - conda activate test_env
   - python -m pip install %NP_TEST_DEP%
 
   # install from wheel
