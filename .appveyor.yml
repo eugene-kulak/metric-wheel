@@ -15,9 +15,9 @@ environment:
     MINICONDA: C:\Miniconda38-x64
 
   matrix:
+    - PYTHON: 3.8
     - PYTHON: 3.6
     - PYTHON: 3.7
-    - PYTHON: 3.8
 
 platform:
   - x64
@@ -58,7 +58,6 @@ build_script:
 
   # Build wheel
   - cd %PACKAGE_DIR%
-  - SET PATH=%MINICONDA%;%MINICONDA%\Scripts;%PATH%
   - python setup.py bdist_wheel
 
 test_script:
