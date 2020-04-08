@@ -14,6 +14,8 @@ environment:
     CMAKE_GENERATOR: "Visual Studio 16 2019"
     MINICONDA: C:\Miniconda38-x64
     PYPI_SERVER: https://test.pypi.org/legacy/
+    PYPI_KEY:
+      secure: 7zjkKLWB5xHPPKGrv72yPEdyZRR78DbgIdDQLZYJZvw9VRgWQmUSweolW75mQuFZ23XT2NxLQpFh/9Q2E1QmZPmgjkN3iAHLII3yUtDG6Vko3qzmt7/K02BpddZJ1z0t2ysatxN5HmgFAz3TzODq+G5cDKCysFtMBquAxzdvoDDZ5Q16+gmJ4XrgU5HwxaJHAXBswVmIs7/CtaSCh9d7NJCxyVzUNBsukDJ/skar2gLqgjRPx90n0ljxS71TM95XPCOSNmKVGJN0E4urqOHntA==
 
   matrix:
     - PYTHON: 3.8
@@ -68,7 +70,7 @@ test_script:
   - python -m pip install %NP_TEST_DEP%
 
   # install from wheel
-  - python -m pip install --pre --no-index --find-links $(Get-ChildItem dist\*.whl)
+  - ps: python -m pip install --pre --no-index --find-links $(Get-ChildItem dist\*.whl)
   - pytest tests
 
 artifacts:
@@ -78,5 +80,5 @@ on_success:
   # Upload to the selected PYPI server
   - python -m pip install twine
   - SET TWINE_USERNAME=__token__
-  - SET TWINE_PASSWORD=TODO_API_SECRET
+  - SET TWINE_PASSWORD=%PYPI_KEY%
   - twine upload --repository-url %PYPI_SERVER% %PACKAGE_DIR%\dist\*.whl
