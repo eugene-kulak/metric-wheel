@@ -24,7 +24,8 @@ environment:
 
 platform:
   - x64
-  - Win32
+# there is no 32bit pre-builds for OpenBLAS
+#  - Win32
 
 matrix:
     fast_finish: true
@@ -83,4 +84,4 @@ on_success:
   - SET TWINE_USERNAME=__token__
   - SET TWINE_PASSWORD=%PYPI_KEY%
   - dir
-  - twine upload --repository-url %PYPI_SERVER% %PACKAGE_DIR%\dist\*
+  - twine upload --repository-url %PYPI_SERVER% dist\*
