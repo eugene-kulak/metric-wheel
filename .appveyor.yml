@@ -4,7 +4,7 @@
 environment:
   global:
     REPO_DIR: metric
-    PACKAGE_DIR: metric/python
+    PACKAGE_DIR: 'metric\python'
     PACKAGE_NAME: metric-py
     BUILD_COMMIT: master
     NP_TEST_DEP: "pytest numpy"
@@ -82,4 +82,4 @@ on_success:
   - python -m pip install twine
   - SET TWINE_USERNAME=__token__
   - SET TWINE_PASSWORD=%PYPI_KEY%
-  - twine upload --repository-url %PYPI_SERVER% %PACKAGE_DIR%\dist\*.whl
+  - twine upload --repository-url %PYPI_SERVER% %PACKAGE_DIR%\dist\*
