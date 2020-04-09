@@ -70,6 +70,7 @@ test_script:
   - python -m pip install %NP_TEST_DEP%
 
   # install from wheel
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
   - ps: python -m pip install --pre --no-index --find-links $(Get-ChildItem dist\*.whl)
   - pytest tests
 
