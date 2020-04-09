@@ -40,7 +40,7 @@ install:
   - conda update -n base conda -y
   - conda create --name build_env -y python=%PYTHON%
   - conda activate build_env
-  - conda install -y libopenblas openblas
+  - conda install -c anaconda libopenblas openblas -y
 
   # Install PkgConfig
   - curl -LO %GNOME_BASE_URL%/dependencies/pkg-config_0.26-1_win32.zip
@@ -66,7 +66,7 @@ test_script:
   # create test env
   - conda create --name test_env -y python=%PYTHON%
   - conda activate test_env
-  - conda install -y libopenblas openblas
+  - conda install -c anaconda libopenblas -y
   - python -m pip install %NP_TEST_DEP%
 
   # install from wheel
