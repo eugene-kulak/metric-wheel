@@ -37,6 +37,7 @@ install:
 
   # install OpenBLAS
   - '%MINICONDA%\Scripts\activate.bat'
+  - conda config --add channels conda-forge
   - conda update -n base conda -y
   - conda create --name build_env -y python=%PYTHON%
   - conda activate build_env
@@ -64,7 +65,6 @@ build_script:
 
 test_script:
   # create test env
-  - conda config --add channels conda-forge
   - conda create --name test_env -y python=%PYTHON%
   - conda activate test_env
   - conda install -c conda-forge libopenblas -y
@@ -75,7 +75,7 @@ test_script:
   - python -m pytest tests
 
 artifacts:
-  - path: "%PACKAGE_DIR%\\dist\\*"
+  - path: %PACKAGE_DIR%\dist\
 
 on_success:
   # Upload to the selected PYPI server
