@@ -13,9 +13,9 @@ environment:
     PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
     CMAKE_GENERATOR: "Visual Studio 16 2019"
     MINICONDA: C:\Miniconda38-x64
-    PYPI_SERVER: https://test.pypi.org/legacy/
+    PYPI_SERVER: https://upload.pypi.org/legacy/
     PYPI_KEY:
-      secure: 7zjkKLWB5xHPPKGrv72yPEdyZRR78DbgIdDQLZYJZvw9VRgWQmUSweolW75mQuFZ23XT2NxLQpFh/9Q2E1QmZPmgjkN3iAHLII3yUtDG6Vko3qzmt7/K02BpddZJ1z0t2ysatxN5HmgFAz3TzODq+G5cDKCysFtMBquAxzdvoDDZ5Q16+gmJ4XrgU5HwxaJHAXBswVmIs7/CtaSCh9d7NJCxyVzUNBsukDJ/skar2gLqgjRPx90n0ljxS71TM95XPCOSNmKVGJN0E4urqOHntA==
+      secure: urcYa1DzXUi6t5Kb76Y94SF+QO9Y+BP94Q0yFlriv5j2d5KVFF6Xf8yYWjqddcKJ+GPmP9Iu6jYKlRaYUswGFrPN9za8c3/vszrBO/QXAFklVuSiM9oe3VIkDEM/8yh8AXBEI4QpFhomN2VP2OzRgF/3E/jcI2JzJnXP9RCs+nF9oBI4wNLCKC/A7A6sk8w1cadiuWKvt4/8ZIxmuGJ4+JkNCtL8mVVoilBoPQ7yDzA=
 
   matrix:
     - PYTHON: 3.8
