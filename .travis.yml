@@ -7,8 +7,8 @@ env:
     - BUILD_DEPENDS="auditwheel==3.1.0"
     - TEST_DEPENDS="pytest"
     - UNICODE_WIDTH=32
-    - PYPI_SERVER="https://test.pypi.org/legacy/"
-#    - secure: YWYvyfWo3bD4q/RCPiACRFeGLJiAskWqElaCSl6Ag/72B4jaZE4JADE3YMuwkVKM//TnWMncHYxFDjIbQ7ZrQjbom6ZEQuEHCAILbcuRDiZj+1WJWgxPNG2uB82MT6eLqcfSxpo5eAH3aC4q0qixO+Px28w1ifmBpbvEx2uHgpjB+b44UjpGTc85XHkOvbc2BFYOS2bvKzi/I6jx/vWyCHo+6tKPsHFSKYMup/fbAIs+PDZ1SvAlJwfSbqu8nt+weMkK1cds0vl9j79bO5d3pb8bVI9XcvS7RAny8mfvlw33ZT2PcLboyHRx5Xa9N/k+huZlP6UXjLF85qvp85/UjMYiksUEgzx5pcSX+qYhR/Ffr1GoCOyzv+61CpzsQXgzfntoN2O3Vl517GO67jxDw2IvOqaeyBX9hSXU++yBG96peIYlESya3XtxAUG+HWDlHg35orPsL+x85B0WUykcRsQAKWxuRBwKViUK7xu8RB4YBSoYdBlr7cUiaDqKnWp+wvhVjvKOPOGJLg9S2q98qhbWbvC6I4KxeoCAIQaGERSyv1jHcqulQsxw0YZAlZWAoLHxMojL7o6hVc/wSKxQCyTfY2Y1c5zgCTvafKP2qmqTAzu+gIaUY8rzhcO+Ig5r7cOw+elq2wO8UE95HAjAdfovwJ4/++zJj4wkynF6TKs=
+    - TWINE_REPOSITORY_URL="https://upload.pypi.org/legacy/"
+    - secure: K/9THjcJ6emu7Fgfl1l9fFcPbZew3l5/8UCGP/Xn/hJJO6oSQnM6YQkJSdm4mCCOT8pAz86TVH2lH4rhXcDjq5fwrvt+RyWzFlnG0KjBjXwpzj8VqgRc/3hNUvoByP7UpAV9/jj/WC5lc+Cb7yoE+8zH06aKnysXAXozPmr39WBGDNUtjBnI369VmU8lK3DANcE2OJFHZDx1lt8qnTXj5IEpbjt73y7NyGU1ao+UYeNdjGqFLRKPnzi02tkaU8STG+taxMf3eQ8NNz0oebruO9t18hUV6GUfqXZD2PHoBm1kyUj0G/pWdoa0x9ncJCfwpfWjE5SX/VGtv/0kxh3nuHTIi1L4+sVbw/OmPHOkiAn1hl5frEyXo7sT4EaQbjP0wPl+Eq1PkUwEZgHr19+H2hGhjrPZD9VWvvXB2cMxMIB7abbIQUdYTrAfsenE9QvafAWW38ZQninFdLD7ex5vGl1vmGw+/LFUmrbPHNXG8HcbiSrnRWcj/Ay+sob8OcplhK6Q0nH5IDpuZur27MUSO4ZGnLfNwy/BgK5cErNsDojnCVY7PJbRrLwfA/5PyPVIDwSx0epyeYOcO2q2bVxZropz1c+JO1B1JakfJC8E30O5Sb8Bra9dL6IkKXrFn1dwHavn/PJSQ64KJI7T47AAhTqWdkzcdqiKJk56qHMAK1E=
     - MB_PYTHON_VERSION=3.7
 language: generic
 python: 3.7
@@ -18,104 +18,39 @@ services: docker
 jobs:
   include:
   # Linux builds
-#    - os: linux
-#      env:
-#        - MB_PYTHON_VERSION=3.6
-#    - os: linux
-#      env:
-#        - MB_PYTHON_VERSION=3.7
-#    - os: linux
-#      env:
-#        - MB_PYTHON_VERSION=3.8
-#   OSX builds
-#    - os: osx
-#      env:
-#        - MB_PYTHON_VERSION=3.6
-#        - VENV=venv
-#    - os: osx
-#      env:
-#        - MB_PYTHON_VERSION=3.7
-#        - VENV=venv
-#    - os: osx
-#      env:
-#        - MB_PYTHON_VERSION=3.8
-#        - VENV=venv
-  # Default OSX (xcode image) is 10.13 (xcode 9.4.1) as of 2020-03-24
-  # See: https://docs.travis-ci.com/user/reference/osx/
-#    - os: osx
-#      osx_image: xcode10.3
-#      env:
-#        - MB_PYTHON_VERSION=3.6
-#        - VENV=venv
-#        - MB_PYTHON_OSX_VER=10.9
-#    - os: osx
-#      osx_image: xcode10.3
-#      env:
-#        - MB_PYTHON_VERSION=3.7
-#        - VENV=venv
-#        - MB_PYTHON_OSX_VER=10.9
-#    - os: osx
-#      osx_image: xcode10.3
-#      env:
-#        - MB_PYTHON_VERSION=3.8
-#        - VENV=venv
-#        - MB_PYTHON_OSX_VER=10.9
-#    - os: osx
-#      osx_image: xcode11
-#      env:
-#        - MB_PYTHON_VERSION=3.6
-#        - VENV=venv
-#        - MB_PYTHON_OSX_VER=10.9
-#    - os: osx
-#      osx_image: xcode11.3
-#      env:
-#        - MB_PYTHON_VERSION=3.6
-#        - VENV=venv
-#        - MB_PYTHON_OSX_VER=10.9
-#    - os: osx
-#      osx_image: xcode10
-#      env:
-#        - MB_PYTHON_VERSION=3.6
-#    - os: osx
-#      osx_image: xcode11.2
-#      env:
-#        - MB_PYTHON_VERSION=3.7
-#    - os: osx
-#      osx_image: xcode10.3
-#      env:
-#        - MB_PYTHON_VERSION=3.6
-#    - os: osx
-#      env:
-#        - MB_PYTHON_VERSION=3.7
-#    - os: osx
-#      osx_image: xcode10
-#      env:
-#        - MB_PYTHON_VERSION=3.8
-#    - os: osx
-#      osx_image: xcode11.3
-#      env:
-#        - MB_PYTHON_VERSION=3.6
-#    - os: osx
-#      osx_image: xcode11.3
-#      env:
-#        - MB_PYTHON_VERSION=3.7
-#    - os: osx
-#      osx_image: xcode11.3
-#      env:
-#        - MB_PYTHON_VERSION=3.8
-    - os: windows
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.6
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.7
+    - os: linux
       env:
         - MB_PYTHON_VERSION=3.8
+  # OS X builds
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.6
+        - VENV=venv
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.7
+        - VENV=venv
+    - os: osx
+      env:
+        - MB_PYTHON_VERSION=3.8
+        - VENV=venv
+  # Windows builds (see .appveyor.yml)
 
-before_install:
+before_build:
   - source multibuild/common_utils.sh
   - source multibuild/travis_steps.sh
   - before_install
-install:
+build_package:
   - clean_code $REPO_DIR $BUILD_COMMIT
   - build_wheel $PACKAGE_DIR $PLAT
-#script:
-#  - install_run $PLAT
+test_package:
+  - install_run $PLAT
 after_success:
   - source publish.sh
   - upload_to_pypi $PYPI_SERVER
