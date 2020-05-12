@@ -42,14 +42,14 @@ jobs:
         - VENV=venv
   # Windows builds (see .appveyor.yml)
 
-before_build:
+before_install:
   - source multibuild/common_utils.sh
   - source multibuild/travis_steps.sh
   - before_install
-build_package:
+install:
   - clean_code $REPO_DIR $BUILD_COMMIT
   - build_wheel $PACKAGE_DIR $PLAT
-test_package:
+script:
   - install_run $PLAT
 after_success:
   - source publish.sh
