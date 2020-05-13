@@ -15,7 +15,8 @@ environment:
     MINICONDA: C:\Miniconda38-x64
     PYPI_SERVER: https://upload.pypi.org/legacy/
     PYPI_KEY:
-      secure: urcYa1DzXUi6t5Kb76Y94SF+QO9Y+BP94Q0yFlriv5j2d5KVFF6Xf8yYWjqddcKJ+GPmP9Iu6jYKlRaYUswGFrPN9za8c3/vszrBO/QXAFklVuSiM9oe3VIkDEM/8yh8AXBEI4QpFhomN2VP2OzRgF/3E/jcI2JzJnXP9RCs+nF9oBI4wNLCKC/A7A6sk8w1cadiuWKvt4/8ZIxmuGJ4+JkNCtL8mVVoilBoPQ7yDzA=
+      secure: LXbpirAQmTMzUkyu0Zncq+h0IPPxNbR/55UJx8tFHjSyeSAUKDgD5Zvd4RrlnTUR2No3w7O2mbMgbZZ5vFtG6AQXvJjLcTXn/YKsC8wUYjb0QbXAcVfYQaGq0XuxkjwHwq1BxEpSZRkwwWIyjKzYy296k7LmGsx+pREcSODBV/GMhFRaiCQ4RC/iPOmc/QhJWnHr3e6+wHOBvSwGLoYeQC5H/IEjP9Ydbv7VjfJrJOI=
+
 
   matrix:
     - PYTHON: 3.8
