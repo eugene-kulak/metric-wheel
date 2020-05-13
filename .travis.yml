@@ -29,17 +29,23 @@ jobs:
         - MB_PYTHON_VERSION=3.8
   # OS X builds
     - os: osx
-      env:
-        - MB_PYTHON_VERSION=3.6
-        - VENV=venv
-    - os: osx
+      osx_image: xcode10.3
       env:
         - MB_PYTHON_VERSION=3.7
         - VENV=venv
+        - MB_PYTHON_OSX_VER=10.9
     - os: osx
+      osx_image: xcode10.3
+      env:
+        - MB_PYTHON_VERSION=3.7
+        - VENV=venv
+        - MB_PYTHON_OSX_VER=10.9
+    - os: osx
+      osx_image: xcode10.3
       env:
         - MB_PYTHON_VERSION=3.8
         - VENV=venv
+        - MB_PYTHON_OSX_VER=10.9
   # Windows builds (see .appveyor.yml)
 
 before_install:
