@@ -3,4 +3,4 @@
 	url = https://github.com/matthew-brett/multibuild.git
 [submodule "metric"]
 	path = metric
-	url = git@github.com:panda-official/metric.git
+	url = https://github.com/panda-official/metric.git
