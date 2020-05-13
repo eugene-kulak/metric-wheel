@@ -13,9 +13,9 @@ environment:
     PKG_CONFIG: "C:/pkg-config/bin/pkg-config.exe"
     CMAKE_GENERATOR: "Visual Studio 16 2019"
     MINICONDA: C:\Miniconda38-x64
-    PYPI_SERVER: https://upload.pypi.org/legacy/
+    TWINE_REPOSITORY_URL: https://upload.pypi.org/legacy/
     PYPI_KEY:
-      secure: LXbpirAQmTMzUkyu0Zncq+h0IPPxNbR/55UJx8tFHjSyeSAUKDgD5Zvd4RrlnTUR2No3w7O2mbMgbZZ5vFtG6AQXvJjLcTXn/YKsC8wUYjb0QbXAcVfYQaGq0XuxkjwHwq1BxEpSZRkwwWIyjKzYy296k7LmGsx+pREcSODBV/GMhFRaiCQ4RC/iPOmc/QhJWnHr3e6+wHOBvSwGLoYeQC5H/IEjP9Ydbv7VjfJrJOI=
+      secure: LXbpirAQmTMzUkyu0Zncq+h0IPPxNbR/55UJx8tFHjSyeSAUKDgD5Zvd4RrlnTUR2No3w7O2mbMgbZZ5vFtG6AQXvJjLcTXn/YKsC8wUYjb0QbXAcVfYQaGq0XuxkjwHwq1BxEpSZRkwwWIyjKzYy296k7LmGsx+pREcSODBV/GMhFRaiCQ4RC/iPOmc/QhJWnHr3e6+wHOBvSwGLoYeQEbU7mkYM8jOA3rUYoch1+Q=
 
 
   matrix:
@@ -85,4 +85,4 @@ on_success:
   - SET TWINE_USERNAME=__token__
   - SET TWINE_PASSWORD=%PYPI_KEY%
   - dir
-  - twine upload --repository-url %PYPI_SERVER% dist\*
+  - twine upload --verbose dist\*
